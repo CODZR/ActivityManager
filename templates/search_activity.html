@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="layui-container">
+	<blockquote class="layui-elem-quote">
+		<h1>CRUD——Django + LayUI</h1>
+	</blockquote>
+	{# 查询活动模块 #}
+	<form action="activity/search/" method="get">
+		<input placeholder="活动名" name="q" id="q">
+		<input type="submit" class="layui-btn" value="搜索">
+	</form>
+
+	{# 显示所有活动模块 #}
+	<table class="layui-table">
+		<colgroup>
+			<col width="150">
+			<col width="200">
+			<col>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>id</th>
+			<th>活动内容</th>
+			<th>通过状态1</th>
+			<th>通过状态2</th>
+			<th>修改</th>
+			<th>删除</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for activity in act_all %}
+			<tr>
+				<td>{{ activity.act_id }}</td>
+				<td>{{ activity.content }}</td>
+				<td>{{ activity.status1 }}</td>
+				<td>{{ activity.status2 }}</td>
+
+				<td>
+					{# 修改活动模块 #}
+					<a href="/get/{{ activity.id }}" class="layui-btn layui-btn-normal">
+						<i class="layui-icon">&#xe642;</i>修改
+					</a>
+				</td>
+				<td>
+					{# 删除活动模块 #}
+					<a href="/delete/{{ activity.id }}" class="layui-btn layui-btn-danger">
+						<i class="layui-icon">&#xe640;</i>删除
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+
+
+		</tbody>
+	</table>
+
+	{# 添加活动模块 #}
+		<a href="/addPage" class="layui-btn layui-btn-warm">
+			<i class="layui-icon">&#xe654;</i> 添加
+		</a>
+
+</div>
+{% endblock %}

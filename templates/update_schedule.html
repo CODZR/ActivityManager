@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+	<br>
+	<div class="layui-main">
+		<div class="layui-fluid">
+			<div class="layui-row">
+				<form class="layui-form" method="post" action="/schedule/update/{{ Schedule.sch_id }}">
+					{% csrf_token %}
+					<div class="layui-form-item layui-inline">
+						<label class="layui-form-label" style="width: auto">日期时间范围</label>
+						<div class="layui-input-inline" style="width: 320px">
+							<input type="text" class="layui-input" id="time_frame" name="time_frame"
+							       value="{{ Schedule.time_frame }}">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="description" class="layui-form-label">
+							<span class="x-red">*</span>活动描述
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="description" name="description" required="" lay-verify="required"
+							       autocomplete="off" class="layui-input" value="{{ Schedule.description }}">
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							<span class="x-red">*</span>请输入活动描述
+						</div>
+					</div>
+					<div class="layui-form-item" style="height: 36px">
+						<label class="layui-form-label"><span class="x-red">*</span>优先级</label>
+						<div class="layui-input-block" >
+							<input type="radio" name="priority" lay-skin="primary" title="黑色" value="1">
+							<input type="radio" name="priority" lay-skin="primary" title="红色" value="2">
+							<input type="radio" name="priority" lay-skin="primary" title="绿色" value="3">
+							<input type="radio" name="priority" lay-skin="primary" title="蓝色" value="4">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="padding-top: 0;">完成-默认否</label>
+						<div class="layui-input-block" style="height: 36px">
+							<input type="checkbox" id="is_done" name="is_done" lay-skin="switch" lay-text="True|False">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="L_repass" class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="update" lay-submit="">
+							更新
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script>
+
+		</script>
+	</div>
+
+	<script>
+		layui.use(['form', 'layer', 'laydate'],
+			function () {
+				$ = layui.jquery;
+				var form = layui.form,
+					layer = layui.layer,
+					laydate = layui.laydate;
+				//自定义验证规则
+
+				form.on('submit(update)', function (data) {
+					//submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
+					//修改开关的值on或""
+					if (data.field.is_done == "on") {
+						data.field.is_done = "True";
+					} else {
+						data.field.is_done = "False";
+					}
+					$.ajax({
+						type: "post",
+						async: false,
+						data: data.field,
+						url: "/schedule/update/"+{{ Schedule.sch_id}},
+						success: function (data1) {
+							console.log(data.field);
+							layer.msg("更新成功");
+						}
+					});
+					{#form.render();#}
+					return false
+				});
+				//日期时间范围
+				laydate.render({
+					elem: '#time_frame'
+					, type: 'datetime'
+					, range: true
+					, theme: '#393D49'
+				});
+			});
+
+
+	</script>
+{% endblock %}
