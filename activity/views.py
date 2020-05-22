@@ -32,7 +32,7 @@ def add_activity(request):
 def search_activity(request):
 	act_all = Activity.objects.all()
 	act_data = {'act_all': act_all}
-	return render(request, 'search_activity.html', act_data)
+	return render(request, 'activity/manage.html', act_data)
 
 
 def update_activity(request):
