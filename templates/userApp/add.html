@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+	<br>
+	<div class="layui-main">
+		<div class="layui-fluid">
+			<div class="layui-row">
+				<form class="layui-form" method="post" action="/user/add/">
+					{% csrf_token %}
+					<div class="layui-form-item">
+						<label class="layui-form-label" >用户名</label>
+						<div class="layui-input-inline">
+							<input type="text" class="layui-input" id="username" name="username">
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							<span class="x-red">*</span>请输入用户名
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="password" class="layui-form-label">
+							<span class="x-red">*</span>密码
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="password" name="password" required="" lay-verify="required"
+							       autocomplete="off" class="layui-input" >
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							<span class="x-red">*</span>请输入密码
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label for="email" class="layui-form-label">
+							<span class="x-red">*</span>邮箱
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="email" name="email" required="" lay-verify="required"
+							       autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							<span class="x-red">*</span>请输入邮箱
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="telephone" class="layui-form-label">
+							<span class="x-red">*</span>电话
+						</label>
+						<div class="layui-input-inline">
+							<input type="text" id="telephone" name="telephone" required="" lay-verify="required"
+							       autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux">
+							<span class="x-red">*</span>请输入电话号码
+						</div>
+					</div>
+					<div class="layui-form-item" style="height: 36px">
+						<label class="layui-form-label"><span class="x-red">*</span>用户类型</label>
+						<div class="layui-input-block">
+							<input type="radio" name="user_type" lay-skin="primary" title="学生" value="1">
+							<input type="radio" name="user_type" lay-skin="primary" title="指导员" value="2">
+							<input type="radio" name="user_type" lay-skin="primary" title="教务处" value="3">
+							<input type="radio" name="user_type" lay-skin="primary" title="管理员" value="4">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label for="add" class="layui-form-label">
+						</label>
+						<button class="layui-btn" lay-filter="add" lay-submit="">
+							增加
+						</button>
+					</div>
+				</form>
+				{{ message }}
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		layui.use(['form', 'layer', 'laydate'],
+			function () {
+				$ = layui.jquery;
+				var form = layui.form,
+					layer = layui.layer,
+					laydate = layui.laydate;
+				//自定义验证规则
+
+				form.on('submit(add)', function (data) {
+					//submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
+					//修改开关的值on或""
+					console.log(data)
+					$.ajax({
+						type: "post",
+						async: false,
+						data: data.field,
+						url: "/user/add/",
+						success: function (data1) {
+							console.log(data1);
+							layer.msg("上传成功");
+						}
+					});
+					{#form.render();#}
+					return false
+				});
+			});
+
+
+	</script>
+{% endblock %}
