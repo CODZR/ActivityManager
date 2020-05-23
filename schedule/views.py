@@ -19,12 +19,16 @@ def add_schedule(request):
 		description = request.POST.get('description')
 		priority = request.POST.get('priority')
 		is_done = request.POST.get('is_done')
+		user_id = request.POST.get('user_id')
+		print(user_id)
+		print(is_done)
 		try:
-			sch_obj = Schedule(time_frame=time_frame, description=description, priority=priority, is_done=is_done)
+			sch_obj = Schedule(time_frame=time_frame, description=description, priority=priority, is_done=is_done, user_id=user_id)
 			sch_obj.save()
-			return render(request, 'schedule/add.html', {'message': '添加成功'})
+			return render(request, 'schedule/add.html', {'message': '时间表添加成功'})
 		except:
-			return render(request, 'schedule/add.html', {'message': '添加失败'})
+			print('fail to add')
+			return render(request, 'schedule/add.html', {'message': '时间表添加失败'})
 	else:
 		return render(request, 'schedule/add.html')
 
@@ -81,9 +85,10 @@ def update_schedule(request, sch_id):
 		description = request.POST.get('description', None)
 		priority = request.POST.get('priority', None)
 		is_done = request.POST.get('is_done', None)
+		user_id = request.POST.get('user_id', None)
 		
 		Schedule.objects.filter(sch_id=sch_id).update(time_frame=time_frame, description=description, priority=priority,
-		                                              is_done=is_done)
+		                                              is_done=is_done, user_id=user_id)
 		print('success')
 		return render(request, 'schedule/update.html', context)
 	else:
