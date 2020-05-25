@@ -4,38 +4,35 @@
 	<div class="layui-main">
 		<div class="layui-fluid">
 			<div class="layui-row">
-				<form class="layui-form" method="post" action="/activity/add/">
+				<form class="layui-form" method="post" action="/activity/check1/{{ Activity.act_id }}">
 					{% csrf_token %}
+
+					<div class="layui-form-item" style="height: 36px">
+						<label class="layui-form-label"><span class="x-red">*</span>通过状态1</label>
+						<div class="layui-input-block">
+							<input type="radio" name="status1" lay-skin="primary" title="审核中" value="1">
+							<input type="radio" name="status1" lay-skin="primary" title="通过" value="2">
+							<input type="radio" name="status1" lay-skin="primary" title="驳回" value="3">
+						</div>
+					</div>
 					<div class="layui-form-item">
-						<label for="act_content" class="layui-form-label">活动内容</label>
+						<label for="rej_reason" class="layui-form-label">
+							<span class="x-red">*</span>驳回原因
+						</label>
 						<div class="layui-input-inline">
-							<input type="text" class="layui-input" id="act_content" name="act_content">
+							<input type="text" id="rej_reason" name="rej_reason" required="" lay-verify="required"
+							       autocomplete="off" class="layui-input" value="{{ Activity.rej_reason}}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">
-							<span class="x-red">*</span>请在活动内容里附加申请的教室信息
+							<span class="x-red">*</span>通过则空，若原因已存在，请加在后方
 						</div>
 					</div>
 
 					<div class="layui-form-item">
-						<label for="user_id" class="layui-form-label">
-							<span class="x-red">*</span>关联用户id
+						<label for="update" class="layui-form-label">
 						</label>
-						<div class="layui-input-inline">
-							<input type="text" id="user_id" name="user_id" required="" lay-verify="required"
-							       autocomplete="off" class="layui-input">
-						</div>
-						<div class="layui-form-mid layui-word-aux">
-							<span class="x-red">*</span>请输入关联用户id
-						</div>
-					</div>
-
-
-
-					<div class="layui-form-item">
-						<label for="add" class="layui-form-label">
-						</label>
-						<button class="layui-btn" lay-filter="add" lay-submit="">
-							增加
+						<button class="layui-btn" lay-filter="update" lay-submit="">
+							更新
 						</button>
 					</div>
 				</form>
@@ -54,19 +51,19 @@
 					laydate = layui.laydate;
 				//自定义验证规则
 
-				form.on('submit(add)', function (data) {
+				form.on('submit(update)', function (data) {
 					//submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
 
-					console.log(data)
+					console.log(data);
 					// 异步请求：发送请求的同时，浏览器不会销毁当前页面，用户仍然可以对当前页面做其他操作。
 					$.ajax({
 						type: "post",
 						async: false,
 						data: data.field,
-						url: "/activity/add/",
+						url: "/activity/check1/" +{{ Activity.act_id}},
 						success: function (data1) {
 							console.log(data1);
-							layer.msg("上传成功");
+							layer.msg("更新成功");
 						}
 					});
 					form.render();

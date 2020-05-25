@@ -21,7 +21,7 @@
 			<button class="layui-btn" data-type="reload">搜索</button>
 		</div>
 
-		<table class="layui-table" id="schedule_table" lay-filter="user">
+		<table class="layui-table" id="user_table" lay-filter="user">
 		</table>
 		<div>
 			<label for="check" class="layui-form-label">
@@ -43,17 +43,18 @@
 
 			//方法级渲染
 			table.render({
-				elem: '#schedule_table'
+				elem: '#user_table'
 				, url: '/user/search/'
 				, toolbar: 'default'
 				, cols: [[
 					{checkbox: true, fixed: true}
 					, {field: 'user_id', title: 'ID', width: 60, sort: true, fixed: true}
-					, {field: 'username', title: '用户名', width: 120, sort: true}
-					, {field: 'password', title: '密码', width: 120}
-					,{field: 'email', title: '邮箱', width: 120}
-					,{field: 'telephone', title: '电话', width: 120}
-					,{field: 'user_type', title: '用户类型', width: 120, templet: function (data) {
+					, {field: 'username', title: '用户名', width: 120}
+					, {field: 'password', title: '密码', width: 60}
+					, {field: 'email', title: '邮箱', width: 120}
+					, {field: 'telephone', title: '电话', width: 120}
+					, {
+						field: 'user_type', title: '用户类型', width: 110, sort: true, templet: function (data) {
 							if (data.user_type === 1)
 								return '学生';
 							else if (data.user_type === 2)
@@ -64,8 +65,17 @@
 								return '管理员';
 							else
 								console.log(data.priority)
+						}
+					}
+					, {field: 'is_active', title: '已激活', width: 80,templet: function (data) {
+							if (data.is_active === true)
+								return '<div class="layui-bg-blue" style="text-align: center">是</div>';
+							else if (data.is_active === false)
+								return '<div class="layui-bg-red" style="text-align: center">否</div>';
+							else
+								console.log(data.priority)
 						}}
-					, {title: '操作', fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+					, {title: '操作', fixed: 'right', width: 140, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 
 				]]
 				, id: 'testReload'
@@ -88,7 +98,7 @@
 					layer.confirm('真的删除' + data.user_id + '的信息吗', function (index) {
 						obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 						layer.close(index);
-						URL = '/schedule/delete/' + data.user_id
+						URL = '/user/delete/' + data.user_id;
 						console.log(URL);
 						window.location = URL;
 						//向服务端发送删除指令

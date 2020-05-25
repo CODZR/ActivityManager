@@ -7,7 +7,7 @@ from userApp.models import User
 
 class Activity(models.Model):
 	act_id = models.AutoField(primary_key=True)
-	content = models.TextField(default='')
+	act_content = models.TextField(default='')
 	status_entry = (
 		(1, 'under_review'),
 		(2, 'pass'),

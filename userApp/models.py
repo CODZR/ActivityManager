@@ -5,7 +5,7 @@ from django.db import models
 
 class User(models.Model):
 	user_id = models.AutoField(primary_key=True)
-	username = models.CharField(max_length=32)
+	username = models.CharField(max_length=32, unique=True)
 	password = models.CharField(max_length=32)
 	email = models.EmailField(max_length=32, default='', null=True, blank=True)
 	telephone = models.CharField(max_length=32, default='', null=True, blank=True)
@@ -16,6 +16,7 @@ class User(models.Model):
 		(4, 'admin')
 	)
 	user_type = models.IntegerField(choices=user_type_entry)
+	is_active = models.BooleanField(default=False)
 	
 	def __str__(self):
 		return self.username

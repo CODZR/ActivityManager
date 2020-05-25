@@ -84,6 +84,7 @@
 						data.field.is_done = "False";
 					}
 					console.log(data.field);
+					// 异步请求：发送请求的同时，浏览器不会销毁当前页面，用户仍然可以对当前页面做其他操作。
 					$.ajax({
 						type: "post",
 						async: false,

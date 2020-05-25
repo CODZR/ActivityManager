@@ -76,7 +76,7 @@
 	</div>
 
 	<script>
-		layui.use(['form', 'layer', 'laydate'],
+		layui.use(['form', 'layer'],
 			function () {
 				$ = layui.jquery;
 				var form = layui.form,
@@ -86,8 +86,9 @@
 
 				form.on('submit(add)', function (data) {
 					//submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
-					//修改开关的值on或""
-					console.log(data)
+
+					console.log(data);
+					// 异步请求：发送请求的同时，浏览器不会销毁当前页面，用户仍然可以对当前页面做其他操作。
 					$.ajax({
 						type: "post",
 						async: false,
@@ -98,7 +99,7 @@
 							layer.msg("上传成功");
 						}
 					});
-					{#form.render();#}
+					form.render();
 					return false
 				});
 			});

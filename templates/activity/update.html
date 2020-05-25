@@ -4,12 +4,13 @@
 	<div class="layui-main">
 		<div class="layui-fluid">
 			<div class="layui-row">
-				<form class="layui-form" method="post" action="/activity/add/">
+				<form class="layui-form" method="post" action="/activity/update/{{ Activity.act_id }}">
 					{% csrf_token %}
 					<div class="layui-form-item">
 						<label for="act_content" class="layui-form-label">活动内容</label>
 						<div class="layui-input-inline">
-							<input type="text" class="layui-input" id="act_content" name="act_content">
+							<input type="text" class="layui-input" id="act_content" name="act_content"
+							       value="{{ Activity.act_content }}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">
 							<span class="x-red">*</span>请在活动内容里附加申请的教室信息
@@ -29,13 +30,11 @@
 						</div>
 					</div>
 
-
-
 					<div class="layui-form-item">
 						<label for="add" class="layui-form-label">
 						</label>
 						<button class="layui-btn" lay-filter="add" lay-submit="">
-							增加
+							更新
 						</button>
 					</div>
 				</form>
@@ -57,16 +56,16 @@
 				form.on('submit(add)', function (data) {
 					//submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
 
-					console.log(data)
+					console.log(data);
 					// 异步请求：发送请求的同时，浏览器不会销毁当前页面，用户仍然可以对当前页面做其他操作。
 					$.ajax({
 						type: "post",
 						async: false,
 						data: data.field,
-						url: "/activity/add/",
+						url: "/activity/update/" +{{ Activity.act_id}},
 						success: function (data1) {
 							console.log(data1);
-							layer.msg("上传成功");
+							layer.msg("更新成功");
 						}
 					});
 					form.render();

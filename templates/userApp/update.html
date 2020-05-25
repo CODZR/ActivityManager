@@ -35,7 +35,7 @@
 						</label>
 						<div class="layui-input-inline">
 							<input type="text" id="email" name="email" required="" lay-verify="required"
-							       autocomplete="off" class="layui-input" value="{{ User.password }}">
+							       autocomplete="off" class="layui-input" value="{{ User.email }}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">
 							<span class="x-red">*</span>请输入邮箱
@@ -47,7 +47,7 @@
 						</label>
 						<div class="layui-input-inline">
 							<input type="text" id="telephone" name="telephone" required="" lay-verify="required"
-							       autocomplete="off" class="layui-input" value="{{ User.password }}">
+							       autocomplete="off" class="layui-input" value="{{ User.telephone }}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">
 							<span class="x-red">*</span>请输入电话号码
@@ -56,10 +56,10 @@
 					<div class="layui-form-item" style="height: 36px">
 						<label class="layui-form-label"><span class="x-red">*</span>用户类型</label>
 						<div class="layui-input-block">
-							<input type="radio" name="user_type" lay-skin="primary" title="黑色" value="1">
-							<input type="radio" name="user_type" lay-skin="primary" title="红色" value="2">
-							<input type="radio" name="user_type" lay-skin="primary" title="绿色" value="3">
-							<input type="radio" name="user_type" lay-skin="primary" title="蓝色" value="4">
+							<input type="radio" name="user_type" lay-skin="primary" title="学生" value="1">
+							<input type="radio" name="user_type" lay-skin="primary" title="辅导员" value="2">
+							<input type="radio" name="user_type" lay-skin="primary" title="教务处" value="3">
+							<input type="radio" name="user_type" lay-skin="primary" title="老师" value="4">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -78,7 +78,7 @@
 	</div>
 
 	<script>
-		layui.use(['form', 'layer', 'laydate'],
+		layui.use(['form', 'layer'],
 			function () {
 				$ = layui.jquery;
 				var form = layui.form,
@@ -86,21 +86,19 @@
 					laydate = layui.laydate;
 				//自定义验证规则
 
-				form.on('submit(update)', function (data) {
-					//submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
-					//修改开关的值on或""
+				form.on('submit(update)', function (data) {  // submit(*)中的 * 号为事件过滤器的值，是在绑定执行提交的元素时设定的,eg:lay-filter="*"
 
+					// 异步请求：发送请求的同时，浏览器不会销毁当前页面，用户仍然可以对当前页面做其他操作。
 					$.ajax({
 						type: "post",
 						async: false,
 						data: data.field,
-						url: "/schedule/update/" +{{ Schedule.sch_id}},
+						url: "/user/update/" +{{ User.user_id}},
 						success: function (data1) {
 							console.log(data.field);
 							layer.msg("更新成功");
 						}
 					});
-					{#form.render();#}
 					return false
 				});
 			});

@@ -1,63 +1,191 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="layui-container">
-	<blockquote class="layui-elem-quote">
-		<h1>CRUD——Django + LayUI</h1>
-	</blockquote>
-	{# 查询活动模块 #}
-	<form action="activity/search/" method="get">
-		<input placeholder="活动名" name="q" id="q">
-		<input type="submit" class="layui-btn" value="搜索">
-	</form>
+	<div class="layui-container">
+		<div class="x-nav">
+        <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">演示</a>
+            <a>
+                <cite>导航元素</cite></a>
+        </span>
+			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+			   onclick="location.reload()" title="刷新">
+				<i class="layui-icon layui-icon-refresh" style="line-height:20px"></i>
+			</a>
+		</div>
+		<div class="searchTable">
+			搜索活动id：
+			<div class="layui-inline">
+				<input class="layui-input" name="act_id" id="demoReload" autocomplete="off">
+			</div>
+			<button class="layui-btn" data-type="reload">搜索</button>
+		</div>
 
-	{# 显示所有活动模块 #}
-	<table class="layui-table">
-		<colgroup>
-			<col width="150">
-			<col width="200">
-			<col>
-		</colgroup>
-		<thead>
-		<tr>
-			<th>id</th>
-			<th>活动内容</th>
-			<th>通过状态1</th>
-			<th>通过状态2</th>
-			<th>修改</th>
-			<th>删除</th>
-		</tr>
-		</thead>
-		<tbody>
-		{% for activity in act_all %}
-			<tr>
-				<td>{{ activity.act_id }}</td>
-				<td>{{ activity.content }}</td>
-				<td>{{ activity.status1 }}</td>
-				<td>{{ activity.status2 }}</td>
-
-				<td>
-					{# 修改活动模块 #}
-					<a href="/get/{{ activity.id }}" class="layui-btn layui-btn-normal">
-						<i class="layui-icon">&#xe642;</i>修改
-					</a>
-				</td>
-				<td>
-					{# 删除活动模块 #}
-					<a href="/delete/{{ activity.id }}" class="layui-btn layui-btn-danger">
-						<i class="layui-icon">&#xe640;</i>删除
-					</a>
-				</td>
-			</tr>
-		{% endfor %}
+		<table class="layui-table" id="activity_table" lay-filter="activity">
+		</table>
+	</div>
 
 
-		</tbody>
-	</table>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script>
+		layui.use(['table', 'form', 'layer',], function () {
+			$ = layui.jquery;
+			var table = layui.table,
+				form = layui.form,
+				layer = layui.layer;
 
-	{# 添加活动模块 #}
-		<a href="/addPage" class="layui-btn layui-btn-warm">
-			<i class="layui-icon">&#xe654;</i> 添加
-		</a>
+			//方法级渲染
+			table.render({
+				elem: '#activity_table'
+				, url: '/activity/search/'
+				, toolbar: 'default'
+				, cols: [[
+					{checkbox: true, fixed: true}
+					, {field: 'act_id', title: 'ID', width: 60, sort: true, fixed: true}
+					, {field: 'act_content', title: '活动内容', width: 120}
+					, {
+						field: 'status1', title: '通过状态1', width: 110, templet: function (data) {
+							if (data.status1 === 1)
+								return '<div class="layui-bg-blue" style="text-align: center">审核中</div>';
+							else if (data.status1 === 2)
+								return '<div class="layui-bg-green" style="text-align: center">通过</div>';
+							else if (data.status1 === 3)
+								return '<div class="layui-bg-black" style="text-align: center">驳回</div>';
+						}
+					}
+					, {
+						field: 'status2', title: '通过状态2', width: 110, templet: function (data) {
+							if (data.status2 === 1)
+								return '<div class="layui-bg-blue" style="text-align: center">审核中</div>';
+							else if (data.status2 === 2)
+								return '<div class="layui-bg-green" style="text-align: center">通过</div>';
+							else if (data.status2 === 3)
+								return '<div class="layui-bg-black" style="text-align: center">驳回</div>';
 
-</div>
+						}
+					}
+					, {field: 'rej_reason', title: '驳回原因', width: 100}
+					, {field: 'user_id', title: '用户id', width: 80}
+					, {title: '操作', fixed: 'right', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+
+				]]
+				, id: 'testReload'
+				, page: true
+				, limit: 5
+				, limits: [1, 5, 10, 25, 30]
+				, height: 'full-200'
+				, cellMinWidth: 80
+			});
+
+			//删除
+			table.on('tool(activity)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+				var data = obj.data; //获得当前行数据
+				var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+				var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+				if (layEvent === 'detail') { //查看
+					//do somehing
+				} else if (layEvent === 'del') { //删除
+					layer.confirm('真的删除' + data.act_id + '的信息吗', function (index) {
+						obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+						layer.close(index);
+						URL = '/activity/delete/' + data.act_id
+						console.log(URL);
+						window.location = URL;
+						//向服务端发送删除指令
+					});
+				} else if (layEvent === 'edit') { //编辑
+					layer.open({
+						type: 2,
+						area: ['500px', '500px'],
+						title: "正在更改" + data.act_id + "的信息",
+						fixed: false, //不固定
+						maxmin: true,
+						shadeClose: false,
+						content: 'http://127.0.0.1:8000/activity/update/' + data.act_id,
+						btn: ['确定', '关闭'],
+						yes: function (index) {
+
+							URL = "/activity/";
+							console.log(URL);
+							window.location = URL;
+
+
+						}
+
+					});
+				} else if (layEvent === 'LAYTABLE_TIPS') {
+					layer.alert('Hi，头部工具栏扩展的右侧图标。');
+				} else if (layEvent === 'check1') { //审批
+					layer.open({
+						type: 2,
+						area: ['500px', '500px'],
+						title: "审批" + data.act_id + "的请求",
+						fixed: false, //不固定
+						maxmin: true,
+						shadeClose: false,
+						content: 'http://127.0.0.1:8000/activity/check1/' + data.act_id,
+						btn: ['确定', '关闭'],
+						yes: function (index) {
+
+							URL = "/activity/";
+							console.log(URL);
+							window.location = URL;
+
+
+						}
+
+					});
+				} else if (layEvent === 'check2') { //审批
+					layer.open({
+						type: 2,
+						area: ['500px', '500px'],
+						title: "审批" + data.act_id + "的请求",
+						fixed: false, //不固定
+						maxmin: true,
+						shadeClose: false,
+						content: 'http://127.0.0.1:8000/activity/check2/' + data.act_id,
+						btn: ['确定', '关闭'],
+						yes: function (index) {
+
+							URL = "/activity/";
+							console.log(URL);
+							window.location = URL;
+
+
+						}
+
+					});
+				}
+			});
+			var $ = layui.$, active = {
+				reload: function () {
+					var demoReload = $('#demoReload');
+
+					//执行重载
+					table.reload('testReload', {
+						page: {
+							curr: 1 //重新从第 1 页开始
+						}
+						, where: {
+							name: demoReload.val()
+						}
+					}, 'data');
+				}
+			};
+
+			$('.searchTable .layui-btn').on('click', function () {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
+			});
+
+		});
+	</script>
+	<script type="text/html" id="barDemo">
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		<a class="layui-btn layui-btn-xs" lay-event="edit">修改信息</a>
+		<a class="layui-btn layui-btn-xs" lay-event="check1">审批1</a>
+		<a class="layui-btn layui-btn-xs" lay-event="check2">审批2</a>
+	</script>
+
 {% endblock %}

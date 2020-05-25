@@ -9,12 +9,12 @@
 		</div>
 		<ul class="layui-nav right" lay-filter="">
 			<li class="layui-nav-item">
-				<a href="javascript:;"></a>
+				<a href="javascript:;">{{ username }}</a>
 				<dl class="layui-nav-child">
 					<!-- 二级菜单 -->
 
 					<dd>
-						<a href="/logout/">退出</a></dd>
+						<a href="/logout/{{ username }}">退出</a></dd>
 				</dl>
 			</li>
 			<li class="layui-nav-item to-index">
@@ -174,30 +174,16 @@
 						<i class="iconfont nav_right">&#xe697;</i></a>
 					<ul class="sub-menu">
 						<li>
-							<a onclick="xadmin.add_tab('添加活动','/schedule/add/')">
+							<a onclick="xadmin.add_tab('添加活动','/activity/add/')">
 								<i class="iconfont">&#xe6a7;</i>
 								<cite>添加活动</cite></a>
 						</li>
 					</ul>
 					<ul class="sub-menu">
 						<li>
-							<a onclick="xadmin.add_tab('删除活动','//')">
+							<a onclick="xadmin.add_tab('管理活动','/activity/')">
 								<i class="iconfont">&#xe6a7;</i>
-								<cite>删除活动</cite></a>
-						</li>
-					</ul>
-					<ul class="sub-menu">
-						<li>
-							<a onclick="xadmin.add_tab('查询活动信息','//')">
-								<i class="iconfont">&#xe6a7;</i>
-								<cite>查询活动信息</cite></a>
-						</li>
-					</ul>
-					<ul class="sub-menu">
-						<li>
-							<a onclick="xadmin.add_tab('修改活动信息','//')">
-								<i class="iconfont">&#xe6a7;</i>
-								<cite>修改活动信息</cite></a>
+								<cite>管理活动</cite></a>
 						</li>
 					</ul>
 				</li>
