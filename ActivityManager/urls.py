@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('activity.urls')),
     path('schedule/', include('schedule.urls')),
     path('user/', include('userApp.urls')),
-
+    path('room/', include('classroomApi.urls')),
+    
 ]

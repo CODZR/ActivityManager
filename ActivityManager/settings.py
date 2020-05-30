@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'schedule',
     'activity',
-    'userApp'
+    'userApp',
+    'classroomApi'
 ]
 
 MIDDLEWARE = [

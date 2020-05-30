@@ -5,7 +5,7 @@
 	{#  注意引入文件的方式  #}
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'css/font.css' %}">
-	<link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+	<link rel="stylesheet" href="{% static 'lib/layui/css/layui.css' %}">
 	<link rel="stylesheet" href="{% static 'css/xadmin.css' %}">
 
 	{#  设置网页标题图标  #}
@@ -14,7 +14,7 @@
 </head>
 <body>
 {#其他layui脚本依赖layui.js，需提前引用#}
-<script src="{% static 'layui/layui.js' %}"></script>
+<script src="{% static 'lib/layui/layui.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/xadmin.js' %}"></script>
 
 {% block content %}
