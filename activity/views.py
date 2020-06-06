@@ -69,14 +69,11 @@ def activity(request):
 
 def add_activity(request):
 	if request.POST:
-		print(1)
 		act_content = request.POST.get('act_content')
 		user_id = request.POST.get('user_id')
 		print(act_content)
 		try:
-			print(2)
 			act_obj = Activity(act_content=act_content, user_id=user_id)
-			print(act_obj)
 			act_obj.save()
 			return render(request, 'activity/add.html', {'message': '活动表添加成功'})
 		except:
