@@ -23,60 +23,109 @@
 							<li class="layui-timeline-item">
 								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 								<div class="layui-timeline-content layui-text">
-									<h3 class="layui-timeline-title">2019-10-24</h3>
+									<h3 class="layui-timeline-title">Git Hub</h3>
 									<p>
-										修改弹出窗口实现最大化，默认窗口非最大化，如果需要弹出窗口最大化，在最后一个参数传 true <br>
-
-										修复add_to_tab 函数bug，在多个页面切换过程的报错。<br>
-
-										show(title,url,w,h,full=false)
+										本网站使用GitHub进行版本控制，模拟团队项目分支开发，有兴趣的朋友可以下载学习和
+										发起pull request进行改进。使用git log --pretty=oneline查看版本信息。时间问题略显
+										粗糙，仍有许多bug，有空再优化。
+										<a href="https://github.com/dzr201732120115/ActivityManager">GitHub地址</a>
+										:https://github.com/dzr201732120115/ActivityManager <br>
+										tags: dzrv1.0(空) v1.1(addStatic) v1.2(scheduleApp) v1.3(userApp)
+										v1.4(activityApp) v1.5(classroomApi) <br>建议下载v1.4 和 v1.5。v1.5之前只使用了django，
+										因此只需要pip install django==3.0.6，v1.5增加了pip install djangorestframework
 									</p>
 								</div>
 							</li>
 							<li class="layui-timeline-item">
 								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 								<div class="layui-timeline-content layui-text">
-									<h3 class="layui-timeline-title">2019-10-19</h3>
-									<p>增加非菜单打开tab函数 x_admin_add_to_tab(title,url,is_refresh) titel为tab标题,url为打开页面地址,is_refresh
-										可选参数，重复点击是否刷新，默认为false不刷新,true为重复点击刷新页面<br>
-										用法:<br>
-										index.html 中直接 add_to_tab('在tab打开','http://www.baidu.com',true)<br>
-										iframe页面中 用 parent.x_admin_add_to_tab('在tab打开','http://www.163.com',true)</p>
-								</div>
-							</li>
-							<li class="layui-timeline-item">
-								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-								<div class="layui-timeline-content layui-text">
-									<h3 class="layui-timeline-title">2019-10-10</h3>
+									<h3 class="layui-timeline-title">2020/6/2 - 2020/6/6</h3>
 									<p>
-										是否开启刷新记忆tab功能, 通过index 页面增加 var is_remember = false;不增加默认开启
+										为锻炼自身加入classroomApi这一app，使用drf框架进行接口编写，前端仍使用layui，数据
+										交互成功。待有空加入权限、认证、节流组件等，并进行相应优化。
 									</p>
 								</div>
 							</li>
 							<li class="layui-timeline-item">
 								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 								<div class="layui-timeline-content layui-text">
-									<h3 class="layui-timeline-title">2019-9-20</h3>
+									<h3 class="layui-timeline-title">2020/5/21 - 2020/5/26</h3>
 									<p>
-										增加tab双击关闭当前tab<br>
-										增加tab右键菜单，可实现 关闭当前/关闭其它/关闭全部
+										社团活动教室借用管理系统功能的初步实现，选择layui配合django即全栈开发，其中开发了
+										schedule、activity和user三个app。之后进入期末作业即复习阶段。
 									</p>
 								</div>
 							</li>
 							<li class="layui-timeline-item">
 								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 								<div class="layui-timeline-content layui-text">
-									<h3 class="layui-timeline-title">2019-9-15</h3>
+									<h3 class="layui-timeline-title">2020/5/2 - 2020/5/20</h3>
 									<p>
-
-										增加 html 根标签增加 class="x-admin-sm" 可以实现整体方格字体的细化 原字体14px 变成12px<br>16px变为14px，对于有些需要显示更多信息的页面比较友好
-										去除x-admin-sm 恢复原来样式<br>
-										增加动态表格事例<br>
-										增加左侧点击刷新tab 可根据实际需要选择 在 sub-menu li 标签中加上属性 date-refresh="1" ,该链接点击会进行刷新<br>
-										增加弹出层函数 x_admin_father_reload() 该函数可以实现对父窗口的刷新<br>
-										刷新保留左侧展开 （利用cookie 保存点击过的 索引，刷新读取cookie对应的索引 进行展开左侧）<br>
-										增加404错误页面<br>
-										tab记忆功能，刷新保留之前打开的tab （利用cookie 保存点击过的 索引，刷新读取cookie对应的索引 进行打开)
+										开始着手本网站的规划，探究前后端如何实现交互，ajax的使用等等。GitHub版本控制等学习。
+									</p>
+								</div>
+							</li>
+							<li class="layui-timeline-item">
+								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+								<div class="layui-timeline-content layui-text">
+									<h3 class="layui-timeline-title">2020/3/2 - 2020/5/1</h3>
+									<p>
+										开始学习前端html、css和js，掌握基础后再三对比选择了先熟练适合后台管理系统的前端框架
+										layui，使用layui配合echarts制作疫情地图和表格数据。同时帮助老师利用爬虫工具爬取微博
+										关键词为“停课不停学”的博文数据81643条，使用pandas中的dataframe对数据分别以时间，
+										TOP10,地区等为主题进行筛选分析，制作数据表格和丁格尔玫瑰图等。
+									</p>
+								</div>
+							</li>
+							<li class="layui-timeline-item">
+								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+								<div class="layui-timeline-content layui-text">
+									<h3 class="layui-timeline-title">2020/1/1 - 2020/3/1</h3>
+									<p>
+										django和drf(django rest_framework)框架的系统学习，从此每天5-8个小时敲代码。以熟悉
+										drf的内部原理和10大组件为主。其间自己给自己出需求做了多个小项目，如适合探究一对多，
+										多对多字段如何使用序列化器存储的书本管理系统。
+									</p>
+								</div>
+							</li>
+							<li class="layui-timeline-item">
+								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+								<div class="layui-timeline-content layui-text">
+									<h3 class="layui-timeline-title">2019/11/30 - 2020/12/31</h3>
+									<p>
+										学习unity的使用（课程和比赛需要），使用vuforia + unity实现ar诗人互动。并在这个阶段
+										确定了走网页制作和python开发的道路，网页后端为主，前端也要学，python对数据进行处理，
+										django框架用于开发网页（5g时代谁先开发出来谁占优势）。
+									</p>
+								</div>
+							</li>
+							<li class="layui-timeline-item">
+								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+								<div class="layui-timeline-content layui-text">
+									<h3 class="layui-timeline-title">2019/10/7 - 2019/11/30 </h3>
+									<p>
+										学会如何debug（作业项目，同时也是第一次接触前端），自学django框架，同学带领我打开
+										新世界的大门，开始探寻制作网页的主流框架即其优缺点。第一次团队项目（作业）论坛系统，
+										前后端分离，使用rap2对接口文档进行定义，使用django restframewrok框架，其中我负责文
+										件管理系统。第一次知道了前后端大概如何交接，第一次学会了网站的部署。
+									</p>
+								</div>
+							</li>
+							<li class="layui-timeline-item">
+								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+								<div class="layui-timeline-content layui-text">
+									<h3 class="layui-timeline-title">2019/10/1 - 2019/10/7</h3>
+									<p>
+										开始学习python,面向百度编程，自学flask框架用于个人项目作业（复制代码使其运行为主）
+									</p>
+								</div>
+							</li>
+							<li class="layui-timeline-item">
+								<i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+								<div class="layui-timeline-content layui-text">
+									<h3 class="layui-timeline-title">2019/10/1 前</h3>
+									<p>
+										一次次配置环境，复制代码使其运行。软件体系架构，操作系统等基础知识的贯入（初步理解）。
 									</p>
 								</div>
 							</li>
