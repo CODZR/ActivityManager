@@ -3,15 +3,19 @@
 &emsp;&emsp;社团活动教室借用后台管理系统，数据库使用sqlite（说是数据较少时效率更高），
 根据开发时间先后有schedule、activity、user和classroomApi四个app，
 前三个使用django配合xadmin（基于layui），classroomApi(v1.5以后) 
-则是基于drf(django restframework)写的api接口。时间问题略显粗糙且仍有许多bug。详情请看[演示网址](106.53.21.189:8000/index/)。
+则是基于drf(django restframework)写的api接口。时间问题略显粗糙且仍有许多bug。详情请看[演示网址](106.53.21.189/index/)。<br>
+admin账户密码： dzr 123
 
 ## GitHub 
 [源码网址](https://github.com/dzr201732120115/ActivityManager) <br>
-[演示地址](106.53.21.189:8000/index/) <br>
+[演示地址](106.53.21.189:/index/) <br>
 > git log --pretty=oneline
 **tags:** 
 * v1.4(activityApp) 
 * v1.5(classroomApi)
+* v2.0
+
+学习用建议下载v1.4(只有django和layui全栈) 或者 v2.0（增加了drf api接口）
 
 ## 快速本地部署（pycharm）
 1. >pip install django 
